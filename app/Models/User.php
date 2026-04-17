@@ -12,12 +12,47 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Support\Str;
 use Laravel\Fortify\TwoFactorAuthenticatable;
 
-#[Fillable(['name', 'email', 'password'])]
+#[Fillable(['name', 'email', 'password', 'role', 'is_active'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
 class User extends Authenticatable
 {
     /** @use HasFactory<UserFactory> */
-    use HasFactory, Notifiable, TwoFactorAuthenticatable;
+    use HasFactory, Notifiable, TwoFactorAuthenticatable, \Spatie\Permission\Traits\HasRoles;
+
+    public function assetUsages()
+    {
+        return $this->hasMany(AssetUsage::class);
+    }
+
+    public function stockRequests()
+    {
+        return $this->hasMany(StockRequest::class, 'requested_by');
+    }
+
+    public function approvedStockRequests()
+    {
+        return $this->hasMany(StockRequest::class, 'approved_by');
+    }
+
+    public function createdMutations()
+    {
+        return $this->hasMany(AssetMutation::class, 'created_by');
+    }
+
+    public function activityLogs()
+    {
+        return $this->hasMany(ActivityLog::class);
+    }
+
+    public function isAdmin(): bool
+    {
+        return $this->hasRole('admin');
+    }
+
+    public function isStaff(): bool
+    {
+        return $this->hasRole('staf');
+    }
 
     /**
      * Get the attributes that should be cast.
@@ -29,6 +64,7 @@ class User extends Authenticatable
         return [
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
+            'is_active' => 'boolean',
         ];
     }
 
