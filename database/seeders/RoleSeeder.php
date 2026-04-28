@@ -14,8 +14,8 @@ class RoleSeeder extends Seeder
     public function run(): void
     {
         // Create roles
-        $adminRole = Role::create(['name' => 'admin']);
-        $stafRole = Role::create(['name' => 'staf']);
+        $adminRole = Role::firstOrCreate(['name' => 'administrator']);
+        $stafRole = Role::firstOrCreate(['name' => 'staf_operasional']);
 
         // Assign to existing users
         $admin = User::where('email', 'admin@simi.com')->first();

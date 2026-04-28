@@ -14,21 +14,25 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         // Admin
-        User::create([
-            'name' => 'Administrator',
-            'email' => 'admin@simi.com',
-            'password' => Hash::make('password'),
-            'role' => 'administrator',
-            'is_active' => true,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'admin@simi.com'],
+            [
+                'name' => 'Administrator',
+                'password' => Hash::make('password'),
+                'role' => 'administrator',
+                'is_active' => true,
+            ]
+        );
 
         // Staf Operasional
-        User::create([
-            'name' => 'Staf Operasional',
-            'email' => 'staf@simi.com',
-            'password' => Hash::make('password'),
-            'role' => 'staf_operasional',
-            'is_active' => true,
-        ]);
+        User::updateOrCreate(
+            ['email' => 'staf@simi.com'],
+            [
+                'name' => 'Staf Operasional',
+                'password' => Hash::make('password'),
+                'role' => 'staf_operasional',
+                'is_active' => true,
+            ]
+        );
     }
 }

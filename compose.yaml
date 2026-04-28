@@ -1,34 +1,28 @@
 services:
-    laravel.test:
+    laravel_app:
         image: 'sail-8.5/app:latest'
-        container_name: simi-kiba-app
-        # Kita panggil script yang kita mount di bawah
-        entrypoint: [/bin/bash, /usr/local/bin/start-container]
+        container_name: simi_kiba_app
+        entrypoint: []
+        command: "php artisan serve --host=0.0.0.0 --port=80"
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '${APP_PORT:-8000}:80'
-            - '${VITE_PORT:-5173}:${VITE_PORT:-5173}'
+            - '8000:80'
+            - '5174:5173'
         environment:
             WWWUSER: '${WWWUSER:-1000}'
             LARAVEL_SAIL: 1
-            XDEBUG_MODE: '${SAIL_XDEBUG_MODE:-off}'
-            XDEBUG_CONFIG: '${SAIL_XDEBUG_CONFIG:-client_host=host.docker.internal}'
-            IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html:z'
-            # MOUNT SCRIPT LANGSUNG DARI HOST (SOLUSI JARINGAN RUSAK)
-            - './vendor/laravel/sail/runtimes/8.5/start-container:/usr/local/bin/start-container:z'
-            - './vendor/laravel/sail/runtimes/8.5/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf:z'
-            - './vendor/laravel/sail/runtimes/8.5/php.ini:/etc/php/8.5/cli/conf.d/99-sail.ini:z'
         networks:
-            - sail
+            - simi_kiba_network
         depends_on:
             - mysql
             - redis
+
     mysql:
         image: 'mysql:8.4'
-        container_name: simi-kiba-mysql
+        container_name: simi_kiba_mysql
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
         environment:
@@ -39,23 +33,28 @@ services:
             MYSQL_PASSWORD: '${DB_PASSWORD:-password}'
             MYSQL_ALLOW_EMPTY_PASSWORD: 1
         volumes:
-            - 'sail-mysql:/var/lib/mysql:z'
+            - 'simi_kiba_mysql:/var/lib/mysql:z'
         networks:
-            - sail
+            - simi_kiba_network
+
     redis:
         image: 'redis:alpine'
-        container_name: simi-kiba-redis
+        container_name: simi_kiba_redis
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'
         volumes:
-            - 'sail-redis:/data:z'
+            - 'simi_kiba_redis:/data:z'
         networks:
-            - sail
+            - simi_kiba_network
+
 networks:
-    sail:
+    simi_kiba_network:
         driver: bridge
+
 volumes:
-    sail-mysql:
+    simi_kiba_mysql:
         driver: local
-    sail-redis:
+    simi_kiba_redis:
         driver: local
+
+

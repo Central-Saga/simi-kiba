@@ -14,10 +14,15 @@ use Laravel\Fortify\TwoFactorAuthenticatable;
 
 #[Fillable(['name', 'email', 'password', 'role', 'is_active'])]
 #[Hidden(['password', 'two_factor_secret', 'two_factor_recovery_codes', 'remember_token'])]
-class User extends Authenticatable
+class User extends Authenticatable implements \Filament\Models\Contracts\FilamentUser
 {
     /** @use HasFactory<UserFactory> */
     use HasFactory, Notifiable, TwoFactorAuthenticatable, \Spatie\Permission\Traits\HasRoles;
+
+    public function canAccessPanel(\Filament\Panel $panel): bool
+    {
+        return $this->is_active && $this->hasAnyRole(['administrator', 'staf_operasional']);
+    }
 
     public function assetUsages()
     {
@@ -46,12 +51,12 @@ class User extends Authenticatable
 
     public function isAdmin(): bool
     {
-        return $this->hasRole('admin');
+        return $this->hasRole('administrator');
     }
 
     public function isStaff(): bool
     {
-        return $this->hasRole('staf');
+        return $this->hasRole('staf_operasional');
     }
 
     /**

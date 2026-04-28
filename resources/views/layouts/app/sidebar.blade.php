@@ -18,63 +18,6 @@
                 <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
                     {{ __('Dashboard') }}
                 </flux:sidebar.item>
-
-                @if(auth()->user()->isAdmin())
-                    <flux:sidebar.group :heading="__('Data Master')" class="grid">
-                        <flux:sidebar.item icon="users" :href="route('admin.users.index')" :current="request()->routeIs('admin.users.*')" wire:navigate>
-                            Pengguna
-                        </flux:sidebar.item>
-                        <flux:sidebar.item icon="shield-check" :href="route('admin.roles.index')" :current="request()->routeIs('admin.roles.*')" wire:navigate>
-                            Roles & Permissions
-                        </flux:sidebar.item>
-                        <flux:sidebar.item icon="map-pin" :href="route('admin.locations.index')" :current="request()->routeIs('admin.locations.*')" wire:navigate>
-                            Lokasi
-                        </flux:sidebar.item>
-                    </flux:sidebar.group>
-                @endif
-
-                <flux:sidebar.group :heading="__('Inventaris')" class="grid">
-                    @php
-                        $assetsRoute = auth()->user()->isAdmin() ? route('admin.assets.index') : route('staf.assets.index');
-                        $assetsActive = auth()->user()->isAdmin() ? request()->routeIs('admin.assets.*') : request()->routeIs('staf.assets.*');
-                    @endphp
-                    <flux:sidebar.item icon="archive-box" :href="$assetsRoute" :current="$assetsActive" wire:navigate>
-                        Aset Inventaris
-                    </flux:sidebar.item>
-
-                    @php
-                        $usagesRoute = auth()->user()->isAdmin() ? route('admin.usages.index') : route('staf.usages.index');
-                        $usagesActive = auth()->user()->isAdmin() ? request()->routeIs('admin.usages.*') : request()->routeIs('staf.usages.*');
-                    @endphp
-                    <flux:sidebar.item icon="clock" :href="$usagesRoute" :current="$usagesActive" wire:navigate>
-                        Penggunaan Aset
-                    </flux:sidebar.item>
-
-                    @if(auth()->user()->isAdmin())
-                        <flux:sidebar.item icon="arrows-right-left" :href="route('admin.mutations.index')" :current="request()->routeIs('admin.mutations.*')" wire:navigate>
-                            Mutasi Aset
-                        </flux:sidebar.item>
-                    @endif
-
-                    @php
-                        $requestsRoute = auth()->user()->isAdmin() ? route('admin.requests.index') : route('staf.requests.index');
-                        $requestsActive = auth()->user()->isAdmin() ? request()->routeIs('admin.requests.*') : request()->routeIs('staf.requests.*');
-                    @endphp
-                    <flux:sidebar.item icon="clipboard-document-list" :href="$requestsRoute" :current="$requestsActive" wire:navigate>
-                        Permintaan Stok
-                    </flux:sidebar.item>
-                </flux:sidebar.group>
-
-                @if(auth()->user()->isAdmin())
-                    <flux:sidebar.group :heading="__('Laporan & Sistem')" class="grid">
-                        <flux:sidebar.item icon="document-text" :href="route('admin.reports.index')" :current="request()->routeIs('admin.reports.*')" wire:navigate>
-                            Laporan
-                        </flux:sidebar.item>
-                        <flux:sidebar.item icon="clock" :href="route('admin.logs.index')" :current="request()->routeIs('admin.logs.*')" wire:navigate>
-                            Log Aktivitas
-                        </flux:sidebar.item>
-                    </flux:sidebar.group>
-                @endif
             </flux:sidebar.nav>
 
             <flux:spacer />
