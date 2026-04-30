@@ -3,12 +3,12 @@ services:
         image: 'sail-8.5/app:latest'
         container_name: simi_kiba_app
         entrypoint: []
-        command: "php artisan serve --host=0.0.0.0 --port=80"
+        command: "php artisan serve --host=0.0.0.0 --port=8000"
         extra_hosts:
             - 'host.docker.internal:host-gateway'
         ports:
-            - '8000:80'
-            - '5174:5173'
+            - '8000:8000'
+            - '5174:5174'
         environment:
             WWWUSER: '${WWWUSER:-1000}'
             LARAVEL_SAIL: 1

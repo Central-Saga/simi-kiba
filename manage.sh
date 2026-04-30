@@ -21,6 +21,9 @@ case "$1" in
         echo "🚀 Menyalakan project SIMI-KIBA (Podman Rootless)..."
         $COMPOSE up -d
         
+        echo "⏳ Menunggu container siap..."
+        sleep 3
+        
         echo "📦 Menjalankan 'npm run dev' di background..."
         # Menjalankan npm run dev di dalam container secara background (detached)
         podman exec -d "$APP_CONTAINER" npm run dev -- --host
@@ -40,6 +43,7 @@ case "$1" in
         echo "🔄 Me-restart project..."
         $COMPOSE down
         $COMPOSE up -d
+        sleep 3
         podman exec -d "$APP_CONTAINER" npm run dev -- --host
         echo "✅ Restart selesai."
         ;;
@@ -98,12 +102,11 @@ case "$1" in
         echo "restart  : Restart project"
         echo "logs     : Show logs"
         echo "shell    : Enter container shell"
-        echo "artisan  : Run artisan command"
-        echo "npm      : Run npm command"
+        echo "artisan  : Run artisan command (e.g., ./manage.sh artisan migrate)"
+        echo "npm      : Run npm command (e.g., ./manage.sh npm install)"
         echo "composer : Run composer command"
         echo "migrate  : Run migrations"
         echo "seed     : Run seeders"
         echo "status   : View container status"
         ;;
 esac
-
