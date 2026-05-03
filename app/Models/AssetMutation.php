@@ -42,4 +42,23 @@ class AssetMutation extends Model
     {
         return $this->belongsTo(User::class, 'created_by');
     }
+
+    protected static function booted()
+    {
+        static::created(function ($mutation) {
+            // // Deduct from source
+            // $fromStock = AssetStock::firstOrCreate([
+            //     'asset_id' => $mutation->asset_id,
+            //     'location_id' => $mutation->from_location_id,
+            // ]);
+            // $fromStock->decrement('quantity', $mutation->quantity);
+
+            // // Add to destination
+            // $toStock = AssetStock::firstOrCreate([
+            //     'asset_id' => $mutation->asset_id,
+            //     'location_id' => $mutation->to_location_id,
+            // ]);
+            // $toStock->increment('quantity', $mutation->quantity);
+        });
+    }
 }

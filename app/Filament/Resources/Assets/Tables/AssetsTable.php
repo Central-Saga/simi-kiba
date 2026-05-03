@@ -25,14 +25,44 @@ class AssetsTable
                 TextColumn::make('category')
                     ->searchable(),
                 TextColumn::make('quantity')
+                    ->label('Total Quantity')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('total_used')
+                    ->label('Digunakan')
+                    ->numeric(),
+                TextColumn::make('total_mutated')
+                    ->label('Dimutasi')
+                    ->numeric(),
+                TextColumn::make('total_available')
+                    ->label('Tersedia')
+                    ->numeric(),
                 TextColumn::make('unit')
+                    ->label('Satuan')
                     ->searchable(),
                 TextColumn::make('condition')
                     ->badge(),
                 TextColumn::make('location.name')
                     ->label('Lokasi')
+                    ->description(function (\App\Models\Asset $record) {
+                        $mutations = $record->mutations()->with('toLocation')->get();
+                        if ($mutations->isEmpty()) return null;
+                        
+                        $grouped = [];
+                        foreach ($mutations as $m) {
+                            $locName = $m->toLocation ? $m->toLocation->name : 'Unknown';
+                            if (!isset($grouped[$locName])) {
+                                $grouped[$locName] = 0;
+                            }
+                            $grouped[$locName] += $m->quantity;
+                        }
+                        
+                        $details = [];
+                        foreach ($grouped as $loc => $qty) {
+                            $details[] = "Mutasi: {$qty} ke {$loc}";
+                        }
+                        return implode(', ', $details);
+                    })
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('created_at')

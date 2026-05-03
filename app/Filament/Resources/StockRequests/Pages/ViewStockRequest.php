@@ -16,4 +16,19 @@ class ViewStockRequest extends ViewRecord
             EditAction::make(),
         ];
     }
+
+    protected function mutateFormDataBeforeFill(array $data): array
+    {
+        $assetExists = \App\Models\Asset::where('name', $data['item_name'])->exists();
+        
+        if ($assetExists) {
+            $data['request_type'] = 'existing';
+            $data['existing_item_name'] = $data['item_name'];
+        } else {
+            $data['request_type'] = 'new';
+            $data['new_item_name'] = $data['item_name'];
+        }
+
+        return $data;
+    }
 }

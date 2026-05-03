@@ -14,7 +14,14 @@ class AssetForm
         return $schema
             ->components([
                 TextInput::make('asset_code')
-                    ->required(),
+                    ->default(function () {
+                        $lastAsset = \App\Models\Asset::latest('id')->first();
+                        $nextId = $lastAsset ? $lastAsset->id + 1 : 1;
+                        return 'AST-' . str_pad($nextId, 3, '0', STR_PAD_LEFT);
+                    })
+                    ->unique(ignoreRecord: true)
+                    ->required()
+                    ->readOnly(),
                 TextInput::make('name')
                     ->required(),
                 TextInput::make('category')
@@ -23,7 +30,10 @@ class AssetForm
                     ->required()
                     ->numeric()
                     ->default(0),
-                TextInput::make('unit'),
+                TextInput::make('unit')
+                    ->label('Satuan (Pcs, Box, dll)')
+                    ->placeholder('Contoh: Pcs, Unit, Kg')
+                    ->required(),
                 Select::make('condition')
                     ->options(['baik' => 'Baik', 'cukup' => 'Cukup', 'rusak' => 'Rusak'])
                     ->default('baik')

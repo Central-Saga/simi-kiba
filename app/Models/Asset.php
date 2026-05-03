@@ -21,6 +21,11 @@ class Asset extends Model
         'description',
     ];
 
+    public function stocks()
+    {
+        return $this->hasMany(AssetStock::class);
+    }
+
     public function location()
     {
         return $this->belongsTo(Location::class);
@@ -34,5 +39,25 @@ class Asset extends Model
     public function mutations()
     {
         return $this->hasMany(AssetMutation::class);
+    }
+
+    public function getTotalQuantityAttribute()
+    {
+        return $this->quantity;
+    }
+
+    public function getTotalUsedAttribute()
+    {
+        return $this->usages()->sum('quantity');
+    }
+
+    public function getTotalMutatedAttribute()
+    {
+        return $this->mutations()->sum('quantity');
+    }
+
+    public function getTotalAvailableAttribute()
+    {
+        return $this->quantity - ($this->total_used + $this->total_mutated);
     }
 }
