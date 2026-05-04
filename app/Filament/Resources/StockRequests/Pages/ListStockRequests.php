@@ -13,6 +13,14 @@ class ListStockRequests extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            \App\Filament\Actions\PdfAction::make(
+                'Permintaan Stok',
+                ['item_name', 'requester.name', 'quantity', 'status', 'request_date'],
+                ['Item', 'Pemohon', 'Jumlah', 'Status', 'Tanggal']
+            ),
+            \Filament\Actions\ExportAction::make()
+                ->exporter(\App\Filament\Exports\StockRequestExporter::class)
+                ->label('Ekspor Data'),
             CreateAction::make(),
         ];
     }

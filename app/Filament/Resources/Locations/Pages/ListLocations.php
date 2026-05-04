@@ -13,6 +13,14 @@ class ListLocations extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            \App\Filament\Actions\PdfAction::make(
+                'Lokasi',
+                ['code', 'name', 'description'],
+                ['Kode', 'Nama Lokasi', 'Deskripsi']
+            ),
+            \Filament\Actions\ExportAction::make()
+                ->exporter(\App\Filament\Exports\LocationExporter::class)
+                ->label('Ekspor Data'),
             CreateAction::make(),
         ];
     }

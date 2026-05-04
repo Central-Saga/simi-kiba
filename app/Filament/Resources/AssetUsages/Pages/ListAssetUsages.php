@@ -13,6 +13,14 @@ class ListAssetUsages extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
+            \App\Filament\Actions\PdfAction::make(
+                'Penggunaan Aset',
+                ['asset.name', 'user.name', 'usage_date', 'quantity', 'purpose'],
+                ['Aset', 'Pengguna', 'Tanggal', 'Jumlah', 'Tujuan']
+            ),
+            \Filament\Actions\ExportAction::make()
+                ->exporter(\App\Filament\Exports\AssetUsageExporter::class)
+                ->label('Ekspor Data'),
             CreateAction::make(),
         ];
     }

@@ -22,7 +22,7 @@ class RoleResource extends Resource
 
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
 
-    protected static string|\UnitEnum|null $navigationGroup = 'Sistem';
+    protected static string|\UnitEnum|null $navigationGroup = 'Data Master';
 
     protected static ?string $navigationLabel = 'Roles';
 

@@ -44,10 +44,7 @@ class User extends Authenticatable implements \Filament\Models\Contracts\Filamen
         return $this->hasMany(AssetMutation::class, 'created_by');
     }
 
-    public function activityLogs()
-    {
-        return $this->hasMany(ActivityLog::class);
-    }
+
 
     public function isAdmin(): bool
     {
