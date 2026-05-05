@@ -57,4 +57,15 @@ class StockRequestResource extends Resource
             'edit' => EditStockRequest::route('/{record}/edit'),
         ];
     }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        $query = parent::getEloquentQuery();
+
+        if (auth()->user()->hasRole('administrator')) {
+            return $query;
+        }
+
+        return $query->where('requested_by', auth()->id());
+    }
 }

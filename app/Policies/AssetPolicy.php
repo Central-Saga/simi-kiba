@@ -29,7 +29,7 @@ class AssetPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole(['administrator', 'staf_operasional']);
+        return $user->hasRole('administrator');
     }
 
     /**
@@ -37,7 +37,7 @@ class AssetPolicy
      */
     public function update(User $user, Asset $asset): bool
     {
-        return $user->hasAnyRole(['administrator', 'staf_operasional']);
+        return $user->hasRole('administrator');
     }
 
     /**

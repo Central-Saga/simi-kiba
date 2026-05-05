@@ -21,7 +21,11 @@ class StockRequestPolicy
      */
     public function view(User $user, StockRequest $stockRequest): bool
     {
-        return $user->hasAnyRole(['administrator', 'staf_operasional']);
+        if ($user->hasRole('administrator')) {
+            return true;
+        }
+
+        return $user->hasRole('staf_operasional') && $stockRequest->requested_by === $user->id;
     }
 
     /**
@@ -37,7 +41,11 @@ class StockRequestPolicy
      */
     public function update(User $user, StockRequest $stockRequest): bool
     {
-        return $user->hasAnyRole(['administrator', 'staf_operasional']);
+        if ($user->hasRole('administrator')) {
+            return true;
+        }
+
+        return $user->hasRole('staf_operasional') && $stockRequest->requested_by === $user->id;
     }
 
     /**

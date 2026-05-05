@@ -24,6 +24,11 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         $this->configureDefaults();
+
+        \Illuminate\Support\Facades\Gate::policy(
+            \Spatie\Permission\Models\Role::class,
+            \App\Policies\RolePolicy::class
+        );
     }
 
     /**

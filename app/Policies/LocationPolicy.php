@@ -29,7 +29,7 @@ class LocationPolicy
      */
     public function create(User $user): bool
     {
-        return $user->hasAnyRole(['administrator', 'staf_operasional']);
+        return $user->hasRole('administrator');
     }
 
     /**
@@ -37,7 +37,7 @@ class LocationPolicy
      */
     public function update(User $user, Location $location): bool
     {
-        return $user->hasAnyRole(['administrator', 'staf_operasional']);
+        return $user->hasRole('administrator');
     }
 
     /**
