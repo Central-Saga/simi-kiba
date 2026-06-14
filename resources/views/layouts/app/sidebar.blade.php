@@ -10,13 +10,13 @@
                     <div class="flex items-center justify-center size-7 rounded-md bg-indigo-600 shadow-sm">
                         <flux:icon.cube class="size-4 text-white" />
                     </div>
-                    <span class="text-sm font-semibold text-zinc-900 tracking-tight">Laravel Starter Kit</span>
+                    <span class="text-sm font-semibold text-zinc-900 tracking-tight">SIMI KIBA</span>
                 </div>
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
                 <flux:sidebar.item icon="home" :href="route('dashboard')" :current="request()->routeIs('dashboard')" wire:navigate>
-                    {{ __('Dashboard') }}
+                    {{ __('Dasbor') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
@@ -24,10 +24,10 @@
 
             <flux:sidebar.nav>
                 <flux:sidebar.item icon="folder" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
-                    {{ __('Repository') }}
+                    {{ __('Repositori') }}
                 </flux:sidebar.item>
                 <flux:sidebar.item icon="book-open" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
-                    {{ __('Documentation') }}
+                    {{ __('Dokumentasi') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
 
@@ -67,7 +67,7 @@
 
                     <flux:menu.radio.group>
                         <flux:menu.item :href="route('profile.edit')" icon="cog" wire:navigate>
-                            {{ __('Settings') }}
+                            {{ __('Pengaturan') }}
                         </flux:menu.item>
                     </flux:menu.radio.group>
 
@@ -82,7 +82,7 @@
                             class="w-full cursor-pointer"
                             data-test="logout-button"
                         >
-                            {{ __('Log out') }}
+                            {{ __('Keluar') }}
                         </flux:menu.item>
                     </form>
                 </flux:menu>
