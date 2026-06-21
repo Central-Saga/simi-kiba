@@ -13,7 +13,6 @@ use App\Models\AssetUsage;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class AssetUsageResource extends Resource
@@ -24,7 +23,9 @@ class AssetUsageResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventaris';
 
-    protected static ?string $navigationLabel = 'Penggunaan Aset';
+    protected static ?string $modelLabel = 'Penggunaan Aset';
+
+    protected static ?string $pluralModelLabel = 'Daftar Penggunaan Aset';
 
     public static function form(Schema $schema): Schema
     {

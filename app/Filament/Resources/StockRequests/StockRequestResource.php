@@ -13,8 +13,8 @@ use App\Models\StockRequest;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 class StockRequestResource extends Resource
 {
@@ -24,7 +24,9 @@ class StockRequestResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventaris';
 
-    protected static ?string $navigationLabel = 'Permintaan Stok';
+    protected static ?string $modelLabel = 'Permintaan Stok';
+
+    protected static ?string $pluralModelLabel = 'Daftar Permintaan Stok';
 
     public static function form(Schema $schema): Schema
     {
@@ -58,7 +60,7 @@ class StockRequestResource extends Resource
         ];
     }
 
-    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    public static function getEloquentQuery(): Builder
     {
         $query = parent::getEloquentQuery();
 

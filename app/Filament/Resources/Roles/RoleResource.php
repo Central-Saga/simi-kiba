@@ -24,7 +24,9 @@ class RoleResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Data Master';
 
-    protected static ?string $navigationLabel = 'Peran';
+    protected static ?string $modelLabel = 'Peran';
+
+    protected static ?string $pluralModelLabel = 'Daftar Peran';
 
     public static function form(Schema $schema): Schema
     {

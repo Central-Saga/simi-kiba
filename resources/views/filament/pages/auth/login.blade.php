@@ -26,10 +26,9 @@
             <div class="max-w-2xl">
                 <div
                     class="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-widest mb-6">
-                    Sistem Inventaris Resmi
+                    Sistem Manajemen Inventaris Barang
                 </div>
-                <h1 class="text-4xl xl:text-5xl font-black leading-[1.1] mb-8 tracking-tighter">
-                    Sistem Manajemen Inventaris Barang pada
+                <h1 class="text-5xl xl:text-6xl font-black leading-[1.05] mb-8 tracking-tighter">
                     <span
                         class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Komisi Informasi Bali</span>
                 </h1>

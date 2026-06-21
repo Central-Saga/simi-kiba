@@ -13,7 +13,6 @@ use App\Models\AssetMutation;
 use BackedEnum;
 use Filament\Resources\Resource;
 use Filament\Schemas\Schema;
-use Filament\Support\Icons\Heroicon;
 use Filament\Tables\Table;
 
 class AssetMutationResource extends Resource
@@ -24,7 +23,9 @@ class AssetMutationResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventaris';
 
-    protected static ?string $navigationLabel = 'Mutasi Aset';
+    protected static ?string $modelLabel = 'Mutasi Aset';
+
+    protected static ?string $pluralModelLabel = 'Daftar Mutasi Aset';
 
     public static function form(Schema $schema): Schema
     {
