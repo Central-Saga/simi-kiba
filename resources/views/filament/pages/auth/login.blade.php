@@ -26,12 +26,12 @@
             <div class="max-w-2xl">
                 <div
                     class="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-widest mb-6">
-                    Komisi Informasi Bali
+                    Sistem Inventaris Resmi
                 </div>
-                <h1 class="text-5xl font-black leading-[1.05] mb-8 tracking-tighter">
-                    Sistem Manajemen<br>Inventaris Barang pada<br>
+                <h1 class="text-4xl xl:text-5xl font-black leading-[1.1] mb-8 tracking-tighter">
+                    Sistem Manajemen Inventaris Barang pada
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">BALI</span>
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">Komisi Informasi Bali</span>
                 </h1>
                 <p class="text-xl text-zinc-400 leading-relaxed max-w-lg">
                     Platform terintegrasi untuk pengelolaan aset dan inventaris negara secara presisi, terbuka, dan
