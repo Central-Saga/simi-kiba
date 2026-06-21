@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\AssetUsages\Schemas;
 
+use App\Models\Asset;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Model;
 
 class AssetUsageForm
 {
@@ -15,6 +17,7 @@ class AssetUsageForm
         return $schema
             ->components([
                 Select::make('asset_id')
+                    ->label('Aset')
                     ->relationship('asset', 'name')
                     ->required()
                     ->searchable()
@@ -22,13 +25,14 @@ class AssetUsageForm
                     ->live()
                     ->afterStateUpdated(function ($state, $set) {
                         if ($state) {
-                            $asset = \App\Models\Asset::find($state);
+                            $asset = Asset::find($state);
                             if ($asset) {
                                 $set('location_id', $asset->location_id);
                             }
                         }
                     }),
                 Select::make('user_id')
+                    ->label('Pengguna')
                     ->relationship('user', 'name')
                     ->default(auth()->id())
                     ->required()
@@ -41,22 +45,26 @@ class AssetUsageForm
                     ->disabled()
                     ->dehydrated(),
                 DatePicker::make('usage_date')
+                    ->label('Tanggal Penggunaan')
                     ->default(now())
                     ->required(),
                 TextInput::make('quantity')
+                    ->label('Jumlah')
                     ->required()
                     ->numeric()
                     ->minValue(1)
                     ->rules([
-                        fn (callable $get, ?\Illuminate\Database\Eloquent\Model $record): \Closure => function (string $attribute, $value, \Closure $fail) use ($get, $record) {
+                        fn (callable $get, ?Model $record): \Closure => function (string $attribute, $value, \Closure $fail) use ($get, $record) {
                             $assetId = $get('asset_id');
 
-                            if (!$assetId) {
+                            if (! $assetId) {
                                 return;
                             }
 
-                            $asset = \App\Models\Asset::find($assetId);
-                            if (!$asset) return;
+                            $asset = Asset::find($assetId);
+                            if (! $asset) {
+                                return;
+                            }
 
                             $available = $asset->total_available;
 
@@ -70,8 +78,10 @@ class AssetUsageForm
                         },
                     ]),
                 Textarea::make('purpose')
+                    ->label('Tujuan')
                     ->columnSpanFull(),
                 Textarea::make('notes')
+                    ->label('Catatan')
                     ->columnSpanFull(),
             ]);
     }

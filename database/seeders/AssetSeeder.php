@@ -18,6 +18,7 @@ class AssetSeeder extends Seeder
         $assets = [
             [
                 'asset_code' => 'AST-001',
+                'register_number' => 'REG-0001',
                 'name' => 'Laptop Dell XPS 15',
                 'category' => 'Elektronik',
                 'quantity' => 5,
@@ -28,6 +29,7 @@ class AssetSeeder extends Seeder
             ],
             [
                 'asset_code' => 'AST-002',
+                'register_number' => 'REG-0002',
                 'name' => 'Printer Epson L3110',
                 'category' => 'Peralatan Kantor',
                 'quantity' => 2,
@@ -38,6 +40,7 @@ class AssetSeeder extends Seeder
             ],
             [
                 'asset_code' => 'AST-003',
+                'register_number' => 'REG-0003',
                 'name' => 'Meja Kerja Kayu Jati',
                 'category' => 'Mebel',
                 'quantity' => 10,
@@ -48,6 +51,7 @@ class AssetSeeder extends Seeder
             ],
             [
                 'asset_code' => 'AST-004',
+                'register_number' => 'REG-0004',
                 'name' => 'AC Split Panasonic 1PK',
                 'category' => 'Elektronik',
                 'quantity' => 4,

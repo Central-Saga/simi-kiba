@@ -17,24 +17,33 @@ class AssetMutationExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
-            ExportColumn::make('asset_id'),
-            ExportColumn::make('from_location_id'),
-            ExportColumn::make('to_location_id'),
-            ExportColumn::make('mutation_date'),
-            ExportColumn::make('quantity'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('created_by'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('asset.name')
+                ->label('Aset'),
+            ExportColumn::make('from_location_id')
+                ->label('Lokasi Asal'),
+            ExportColumn::make('to_location_id')
+                ->label('Lokasi Tujuan'),
+            ExportColumn::make('mutation_date')
+                ->label('Tanggal Mutasi'),
+            ExportColumn::make('quantity')
+                ->label('Jumlah'),
+            ExportColumn::make('notes')
+                ->label('Catatan'),
+            ExportColumn::make('created_by')
+                ->label('Dibuat Oleh'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Ekspor mutasi aset telah selesai dan ' . Number::format($export->successful_rows) . ' ' . str('baris')->plural($export->successful_rows) . ' berhasil diekspor.';
+        $body = 'Ekspor mutasi aset telah selesai dan '.Number::format($export->successful_rows).' '.str('baris')->plural($export->successful_rows).' berhasil diekspor.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . Number::format($failedRowsCount) . ' ' . str('baris')->plural($failedRowsCount) . ' gagal diekspor.';
+            $body .= ' '.Number::format($failedRowsCount).' '.str('baris')->plural($failedRowsCount).' gagal diekspor.';
         }
 
         return $body;

@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\Users\Pages;
 
+use App\Filament\Actions\PdfAction;
+use App\Filament\Exports\UserExporter;
 use App\Filament\Resources\Users\UserResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListUsers extends ListRecords
@@ -13,13 +16,13 @@ class ListUsers extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \App\Filament\Actions\PdfAction::make(
+            PdfAction::make(
                 'Pengguna',
                 ['name', 'email', 'role', 'is_active'],
-                ['Nama', 'Email', 'Role', 'Aktif']
+                ['Nama', 'Alamat Email', 'Peran', 'Aktif']
             ),
-            \Filament\Actions\ExportAction::make()
-                ->exporter(\App\Filament\Exports\UserExporter::class)
+            ExportAction::make()
+                ->exporter(UserExporter::class)
                 ->label('Ekspor Data'),
             CreateAction::make(),
         ];

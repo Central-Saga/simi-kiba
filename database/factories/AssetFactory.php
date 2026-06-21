@@ -11,6 +11,7 @@ class AssetFactory extends Factory
     {
         return [
             'asset_code' => $this->faker->unique()->bothify('AST-####'),
+            'register_number' => 'REG-'.$this->faker->unique()->numberBetween(1000, 9999),
             'name' => $this->faker->words(3, true),
             'category' => $this->faker->randomElement(['Elektronik', 'Mebel', 'Kendaraan', 'Alat Tulis']),
             'quantity' => $this->faker->numberBetween(1, 50),

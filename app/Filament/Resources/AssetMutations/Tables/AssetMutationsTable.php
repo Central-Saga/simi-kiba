@@ -15,6 +15,15 @@ class AssetMutationsTable
     {
         return $table
             ->columns([
+                TextColumn::make('rowIndex')
+                    ->label('Nomor Urut')
+                    ->rowIndex()
+                    ->alignCenter(),
+                TextColumn::make('asset.register_number')
+                    ->label('Nomor Register')
+                    ->searchable()
+                    ->copyable()
+                    ->sortable(),
                 TextColumn::make('asset.name')
                     ->label('Aset')
                     ->searchable()
@@ -28,12 +37,20 @@ class AssetMutationsTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('mutation_date')
+                    ->label('Tanggal Mutasi')
                     ->date()
                     ->sortable(),
                 TextColumn::make('quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('creator.name')
+                    ->label('Dibuat Oleh')
+                    ->searchable()
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

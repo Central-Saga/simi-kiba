@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\Locations\Pages;
 
+use App\Filament\Actions\PdfAction;
+use App\Filament\Exports\LocationExporter;
 use App\Filament\Resources\Locations\LocationResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListLocations extends ListRecords
@@ -13,13 +16,13 @@ class ListLocations extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \App\Filament\Actions\PdfAction::make(
+            PdfAction::make(
                 'Lokasi',
                 ['code', 'name', 'description'],
-                ['Kode', 'Nama Lokasi', 'Deskripsi']
+                ['Kode Lokasi', 'Nama Lokasi', 'Deskripsi']
             ),
-            \Filament\Actions\ExportAction::make()
-                ->exporter(\App\Filament\Exports\LocationExporter::class)
+            ExportAction::make()
+                ->exporter(LocationExporter::class)
                 ->label('Ekspor Data'),
             CreateAction::make(),
         ];

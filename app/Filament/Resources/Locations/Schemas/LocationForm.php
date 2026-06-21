@@ -2,8 +2,8 @@
 
 namespace App\Filament\Resources\Locations\Schemas;
 
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
 
 class LocationForm
@@ -13,10 +13,13 @@ class LocationForm
         return $schema
             ->components([
                 TextInput::make('code')
+                    ->label('Kode Lokasi')
                     ->required(),
                 TextInput::make('name')
+                    ->label('Nama Lokasi')
                     ->required(),
                 Textarea::make('description')
+                    ->label('Deskripsi')
                     ->columnSpanFull(),
             ]);
     }
