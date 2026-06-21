@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Pages\Auth\CustomLogin;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -27,8 +28,8 @@ class AdminPanelProvider extends PanelProvider
             ->default()
             ->id('admin')
             ->path('admin')
-            ->login(\App\Filament\Pages\Auth\CustomLogin::class)
-            ->brandName('Manajemen Inventaris Pada Komisi Informasi Bali')
+            ->login(CustomLogin::class)
+            ->brandName('Sistem Manajemen Inventaris Barang pada Komisi Informasi Bali')
             ->colors([
                 'primary' => Color::Amber,
             ])

@@ -17,24 +17,33 @@ class AssetUsageExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
-            ExportColumn::make('asset_id'),
-            ExportColumn::make('location_id'),
-            ExportColumn::make('user_id'),
-            ExportColumn::make('usage_date'),
-            ExportColumn::make('quantity'),
-            ExportColumn::make('purpose'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('asset.name')
+                ->label('Aset'),
+            ExportColumn::make('location_id')
+                ->label('Lokasi'),
+            ExportColumn::make('user_id')
+                ->label('Pengguna'),
+            ExportColumn::make('usage_date')
+                ->label('Tanggal Penggunaan'),
+            ExportColumn::make('quantity')
+                ->label('Jumlah'),
+            ExportColumn::make('purpose')
+                ->label('Tujuan'),
+            ExportColumn::make('notes')
+                ->label('Catatan'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Ekspor penggunaan aset telah selesai dan ' . Number::format($export->successful_rows) . ' ' . str('baris')->plural($export->successful_rows) . ' berhasil diekspor.';
+        $body = 'Ekspor penggunaan aset telah selesai dan '.Number::format($export->successful_rows).' '.str('baris')->plural($export->successful_rows).' berhasil diekspor.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . Number::format($failedRowsCount) . ' ' . str('baris')->plural($failedRowsCount) . ' gagal diekspor.';
+            $body .= ' '.Number::format($failedRowsCount).' '.str('baris')->plural($failedRowsCount).' gagal diekspor.';
         }
 
         return $body;

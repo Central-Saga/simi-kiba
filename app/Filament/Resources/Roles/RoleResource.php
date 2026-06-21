@@ -24,7 +24,7 @@ class RoleResource extends Resource
 
     protected static string|\UnitEnum|null $navigationGroup = 'Data Master';
 
-    protected static ?string $navigationLabel = 'Roles';
+    protected static ?string $navigationLabel = 'Peran';
 
     public static function form(Schema $schema): Schema
     {
@@ -33,10 +33,11 @@ class RoleResource extends Resource
                 TextInput::make('name')
                     ->required()
                     ->unique(ignoreRecord: true)
-                    ->label('Nama Role'),
+                    ->label('Nama Peran'),
                 TextInput::make('guard_name')
                     ->default('web')
-                    ->required(),
+                    ->required()
+                    ->label('Nama Penjaga'),
                 Select::make('permissions')
                     ->multiple()
                     ->relationship('permissions', 'name')
@@ -45,12 +46,13 @@ class RoleResource extends Resource
                         TextInput::make('name')
                             ->required()
                             ->unique('permissions', 'name')
-                            ->label('Nama Permission'),
+                            ->label('Nama Hak Akses'),
                         TextInput::make('guard_name')
                             ->default('web')
-                            ->required(),
+                            ->required()
+                            ->label('Nama Penjaga'),
                     ])
-                    ->label('Permissions'),
+                    ->label('Hak Akses'),
             ]);
     }
 
@@ -58,13 +60,18 @@ class RoleResource extends Resource
     {
         return $table
             ->columns([
+                TextColumn::make('rowIndex')
+                    ->label('Nomor Urut')
+                    ->rowIndex()
+                    ->alignCenter(),
                 TextColumn::make('name')
                     ->searchable()
-                    ->label('Nama Role'),
+                    ->label('Nama Peran'),
                 TextColumn::make('permissions_count')
                     ->counts('permissions')
-                    ->label('Jumlah Permission'),
+                    ->label('Jumlah Hak Akses'),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

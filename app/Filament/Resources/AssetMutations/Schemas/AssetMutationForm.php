@@ -2,11 +2,13 @@
 
 namespace App\Filament\Resources\AssetMutations\Schemas;
 
+use App\Models\Asset;
 use Filament\Forms\Components\DatePicker;
 use Filament\Forms\Components\Select;
-use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
+use Filament\Forms\Components\TextInput;
 use Filament\Schemas\Schema;
+use Illuminate\Database\Eloquent\Model;
 
 class AssetMutationForm
 {
@@ -15,6 +17,7 @@ class AssetMutationForm
         return $schema
             ->components([
                 Select::make('asset_id')
+                    ->label('Aset')
                     ->relationship('asset', 'name')
                     ->required()
                     ->searchable()
@@ -22,39 +25,45 @@ class AssetMutationForm
                     ->live()
                     ->afterStateUpdated(function ($state, $set) {
                         if ($state) {
-                            $asset = \App\Models\Asset::find($state);
+                            $asset = Asset::find($state);
                             if ($asset) {
                                 $set('from_location_id', $asset->location_id);
                             }
                         }
                     }),
                 Select::make('from_location_id')
+                    ->label('Lokasi Asal')
                     ->relationship('fromLocation', 'name')
                     ->required()
                     ->disabled()
                     ->dehydrated(),
                 Select::make('to_location_id')
+                    ->label('Lokasi Tujuan')
                     ->relationship('toLocation', 'name')
                     ->required()
                     ->searchable()
                     ->preload(),
                 DatePicker::make('mutation_date')
+                    ->label('Tanggal Mutasi')
                     ->default(now())
                     ->required(),
                 TextInput::make('quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->required()
                     ->minValue(1)
                     ->rules([
-                        fn (callable $get, ?\Illuminate\Database\Eloquent\Model $record): \Closure => function (string $attribute, $value, \Closure $fail) use ($get, $record) {
+                        fn (callable $get, ?Model $record): \Closure => function (string $attribute, $value, \Closure $fail) use ($get, $record) {
                             $assetId = $get('asset_id');
 
-                            if (!$assetId) {
+                            if (! $assetId) {
                                 return;
                             }
 
-                            $asset = \App\Models\Asset::find($assetId);
-                            if (!$asset) return;
+                            $asset = Asset::find($assetId);
+                            if (! $asset) {
+                                return;
+                            }
 
                             $available = $asset->total_available;
 
@@ -68,12 +77,14 @@ class AssetMutationForm
                         },
                     ]),
                 Select::make('created_by')
+                    ->label('Dibuat Oleh')
                     ->relationship('creator', 'name')
                     ->default(auth()->id())
                     ->required()
                     ->searchable()
                     ->preload(),
                 Textarea::make('notes')
+                    ->label('Catatan')
                     ->columnSpanFull(),
             ]);
     }

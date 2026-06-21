@@ -17,22 +17,27 @@ class UserExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
-            ExportColumn::make('name'),
-            ExportColumn::make('email'),
-            ExportColumn::make('role'),
+            ExportColumn::make('name')
+                ->label('Nama'),
+            ExportColumn::make('email')
+                ->label('Alamat Email'),
+            ExportColumn::make('role')
+                ->label('Peran'),
             ExportColumn::make('is_active')
                 ->label('Aktif'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Ekspor pengguna telah selesai dan ' . Number::format($export->successful_rows) . ' ' . str('baris')->plural($export->successful_rows) . ' berhasil diekspor.';
+        $body = 'Ekspor pengguna telah selesai dan '.Number::format($export->successful_rows).' '.str('baris')->plural($export->successful_rows).' berhasil diekspor.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . Number::format($failedRowsCount) . ' ' . str('baris')->plural($failedRowsCount) . ' gagal diekspor.';
+            $body .= ' '.Number::format($failedRowsCount).' '.str('baris')->plural($failedRowsCount).' gagal diekspor.';
         }
 
         return $body;

@@ -15,6 +15,15 @@ class AssetUsagesTable
     {
         return $table
             ->columns([
+                TextColumn::make('rowIndex')
+                    ->label('Nomor Urut')
+                    ->rowIndex()
+                    ->alignCenter(),
+                TextColumn::make('asset.register_number')
+                    ->label('Nomor Register')
+                    ->searchable()
+                    ->copyable()
+                    ->sortable(),
                 TextColumn::make('asset.name')
                     ->label('Aset')
                     ->searchable()
@@ -24,16 +33,25 @@ class AssetUsagesTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('usage_date')
+                    ->label('Tanggal Penggunaan')
                     ->date()
                     ->sortable(),
                 TextColumn::make('quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->sortable(),
+                TextColumn::make('purpose')
+                    ->label('Tujuan')
+                    ->searchable()
+                    ->wrap()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

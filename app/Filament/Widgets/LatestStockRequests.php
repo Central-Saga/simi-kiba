@@ -2,48 +2,51 @@
 
 namespace App\Filament\Widgets;
 
-use Filament\Actions\BulkActionGroup;
+use App\Models\StockRequest;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Filament\Widgets\TableWidget;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
 class LatestStockRequests extends TableWidget
 {
     protected static ?int $sort = 4;
 
-    protected int | string | array $columnSpan = 'full';
+    protected int|string|array $columnSpan = 'full';
 
     protected static ?string $heading = 'Permintaan Stok Terbaru';
 
     public function table(Table $table): Table
     {
         return $table
-            ->query(fn (): Builder => \App\Models\StockRequest::query()->latest()->limit(5))
+            ->query(fn (): Builder => StockRequest::query()->latest()->limit(5))
             ->columns([
-                \Filament\Tables\Columns\TextColumn::make('item_name')
-                    ->label('Nama Item')
+                TextColumn::make('rowIndex')
+                    ->label('Nomor Urut')
+                    ->rowIndex()
+                    ->alignCenter(),
+                TextColumn::make('item_name')
+                    ->label('Nama Barang')
                     ->searchable(),
-                \Filament\Tables\Columns\TextColumn::make('requester.name')
+                TextColumn::make('requester.name')
                     ->label('Pemohon'),
-                \Filament\Tables\Columns\TextColumn::make('quantity')
+                TextColumn::make('quantity')
                     ->label('Jumlah')
                     ->alignCenter(),
-                \Filament\Tables\Columns\TextColumn::make('status')
+                TextColumn::make('status')
                     ->label('Status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'pending' => 'warning',
-                        'approved' => 'success',
-                        'rejected' => 'danger',
+                        'diajukan' => 'warning',
+                        'disetujui' => 'success',
+                        'ditolak' => 'danger',
                         default => 'gray',
                     }),
-                \Filament\Tables\Columns\TextColumn::make('created_at')
+                TextColumn::make('created_at')
                     ->label('Waktu Pengajuan')
                     ->dateTime()
                     ->since()
                     ->sortable(),
-            ])
-            ->paginated(false);
+            ]);
     }
 }

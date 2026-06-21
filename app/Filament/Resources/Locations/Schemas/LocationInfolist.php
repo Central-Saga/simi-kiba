@@ -11,15 +11,20 @@ class LocationInfolist
     {
         return $schema
             ->components([
-                TextEntry::make('code'),
-                TextEntry::make('name'),
+                TextEntry::make('code')
+                    ->label('Kode Lokasi'),
+                TextEntry::make('name')
+                    ->label('Nama Lokasi'),
                 TextEntry::make('description')
+                    ->label('Deskripsi')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

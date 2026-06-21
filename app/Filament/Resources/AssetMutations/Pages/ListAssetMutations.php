@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\AssetMutations\Pages;
 
+use App\Filament\Actions\PdfAction;
+use App\Filament\Exports\AssetMutationExporter;
 use App\Filament\Resources\AssetMutations\AssetMutationResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAssetMutations extends ListRecords
@@ -13,13 +16,13 @@ class ListAssetMutations extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \App\Filament\Actions\PdfAction::make(
+            PdfAction::make(
                 'Mutasi Aset',
-                ['asset.name', 'fromLocation.name', 'toLocation.name', 'mutation_date', 'quantity'],
-                ['Aset', 'Dari Lokasi', 'Ke Lokasi', 'Tanggal', 'Jumlah']
+                ['asset.register_number', 'asset.name', 'fromLocation.name', 'toLocation.name', 'mutation_date', 'quantity'],
+                ['Nomor Register', 'Aset', 'Dari Lokasi', 'Ke Lokasi', 'Tanggal Mutasi', 'Jumlah']
             ),
-            \Filament\Actions\ExportAction::make()
-                ->exporter(\App\Filament\Exports\AssetMutationExporter::class)
+            ExportAction::make()
+                ->exporter(AssetMutationExporter::class)
                 ->label('Ekspor Data'),
             CreateAction::make(),
         ];

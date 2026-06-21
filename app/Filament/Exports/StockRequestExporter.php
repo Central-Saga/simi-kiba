@@ -17,25 +17,35 @@ class StockRequestExporter extends Exporter
         return [
             ExportColumn::make('id')
                 ->label('ID'),
-            ExportColumn::make('requested_by'),
-            ExportColumn::make('item_name'),
-            ExportColumn::make('quantity'),
-            ExportColumn::make('request_date'),
-            ExportColumn::make('status'),
-            ExportColumn::make('notes'),
-            ExportColumn::make('approved_by'),
-            ExportColumn::make('approved_at'),
-            ExportColumn::make('created_at'),
-            ExportColumn::make('updated_at'),
+            ExportColumn::make('requested_by')
+                ->label('Pemohon'),
+            ExportColumn::make('item_name')
+                ->label('Nama Barang'),
+            ExportColumn::make('quantity')
+                ->label('Jumlah'),
+            ExportColumn::make('request_date')
+                ->label('Tanggal Permintaan'),
+            ExportColumn::make('status')
+                ->label('Status'),
+            ExportColumn::make('notes')
+                ->label('Catatan'),
+            ExportColumn::make('approved_by')
+                ->label('Penyetuju'),
+            ExportColumn::make('approved_at')
+                ->label('Disetujui Pada'),
+            ExportColumn::make('created_at')
+                ->label('Dibuat Pada'),
+            ExportColumn::make('updated_at')
+                ->label('Diperbarui Pada'),
         ];
     }
 
     public static function getCompletedNotificationBody(Export $export): string
     {
-        $body = 'Ekspor permintaan stok telah selesai dan ' . Number::format($export->successful_rows) . ' ' . str('baris')->plural($export->successful_rows) . ' berhasil diekspor.';
+        $body = 'Ekspor permintaan stok telah selesai dan '.Number::format($export->successful_rows).' '.str('baris')->plural($export->successful_rows).' berhasil diekspor.';
 
         if ($failedRowsCount = $export->getFailedRowsCount()) {
-            $body .= ' ' . Number::format($failedRowsCount) . ' ' . str('baris')->plural($failedRowsCount) . ' gagal diekspor.';
+            $body .= ' '.Number::format($failedRowsCount).' '.str('baris')->plural($failedRowsCount).' gagal diekspor.';
         }
 
         return $body;

@@ -16,34 +16,33 @@
                     <x-app-logo-icon class="size-8 fill-current text-white" />
                 </div>
                 <div class="flex flex-col">
-                    <span class="text-2xl font-black tracking-widest uppercase leading-none">SIMI</span>
+                    <span class="text-2xl font-black tracking-widest uppercase leading-none">SIMI KIBA</span>
                     <span
-                        class="text-xs font-medium tracking-[0.3em] text-amber-400 uppercase leading-none mt-1">Management
-                        System</span>
+                        class="text-xs font-medium tracking-[0.3em] text-amber-400 uppercase leading-none mt-1">Sistem
+                        Manajemen Inventaris</span>
                 </div>
             </div>
 
             <div class="max-w-2xl">
                 <div
                     class="inline-flex items-center px-3 py-1 rounded-full bg-amber-500/20 border border-amber-500/30 text-amber-400 text-xs font-bold uppercase tracking-widest mb-6">
-                    Sistem Informasi Manajemen Inventaris
+                    Komisi Informasi Bali
                 </div>
-                <h1 class="text-7xl font-black leading-[0.9] mb-8 tracking-tighter">
-                    KOMISI<br>
-                    INFORMASI<br>
+                <h1 class="text-5xl font-black leading-[1.05] mb-8 tracking-tighter">
+                    Sistem Manajemen<br>Inventaris Barang pada<br>
                     <span
-                        class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600 italic">BALI</span>
+                        class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 to-amber-600">BALI</span>
                 </h1>
                 <p class="text-xl text-zinc-400 leading-relaxed max-w-lg">
-                    Platform terintegrasi untuk pengelolaan aset dan inventaris negara dengan presisi, transparansi, dan
-                    efisiensi tingkat tinggi.
+                    Platform terintegrasi untuk pengelolaan aset dan inventaris negara secara presisi, terbuka, dan
+                    efisien.
                 </p>
             </div>
 
             <div class="flex items-center gap-6 text-sm font-medium text-zinc-500">
                 <span>&copy; {{ date('Y') }} Komisi Informasi Bali</span>
                 <span class="h-1 w-1 rounded-full bg-zinc-700"></span>
-                <span>Security Verified</span>
+                <span>Terverifikasi &amp; Aman</span>
             </div>
         </div>
 
@@ -60,11 +59,11 @@
                 <div class="flex h-12 w-12 items-center justify-center rounded-xl bg-amber-600 text-white shadow-lg">
                     <x-app-logo-icon class="size-7 fill-current" />
                 </div>
-                <span class="text-xl font-bold tracking-tight uppercase">SIMI KIB</span>
+                <span class="text-xl font-bold tracking-tight uppercase">SIMI KIBA</span>
             </div>
 
             <div class="mb-12">
-                <h2 class="text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3">Login Admin</h2>
+                <h2 class="text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3">Masuk Admin</h2>
                 <p class="text-zinc-500 dark:text-zinc-400">Silakan masukkan kredensial Anda untuk mengakses panel
                     kontrol.</p>
             </div>

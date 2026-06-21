@@ -3,15 +3,18 @@
 namespace App\Filament\Resources\StockRequests\Pages;
 
 use App\Filament\Resources\StockRequests\StockRequestResource;
+use App\Models\Asset;
+use App\Models\Location;
 use Filament\Actions\DeleteAction;
 use Filament\Actions\ViewAction;
 use Filament\Resources\Pages\EditRecord;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class EditStockRequest extends EditRecord
 {
     protected static string $resource = StockRequestResource::class;
-    
+
     protected ?string $oldStatus = null;
 
     protected function getHeaderActions(): array
@@ -24,8 +27,8 @@ class EditStockRequest extends EditRecord
 
     protected function mutateFormDataBeforeFill(array $data): array
     {
-        $assetExists = \App\Models\Asset::where('name', $data['item_name'])->exists();
-        
+        $assetExists = Asset::where('name', $data['item_name'])->exists();
+
         if ($assetExists) {
             $data['request_type'] = 'existing';
             $data['existing_item_name'] = $data['item_name'];
@@ -61,22 +64,23 @@ class EditStockRequest extends EditRecord
         $record = $this->record;
 
         if ($this->oldStatus !== 'disetujui' && $record->status === 'disetujui') {
-            \Illuminate\Support\Facades\DB::transaction(function () use ($record) {
-                $asset = \App\Models\Asset::where('name', $record->item_name)->first();
+            DB::transaction(function () use ($record) {
+                $asset = Asset::where('name', $record->item_name)->first();
 
                 if ($asset) {
                     $asset->quantity += $record->quantity;
                     $asset->save();
                 } else {
-                    $location = \App\Models\Location::firstOrCreate(
+                    $location = Location::firstOrCreate(
                         ['code' => 'DEF'],
-                        ['name' => 'Default Location']
+                        ['name' => 'Lokasi Default']
                     );
-                    
-                    \App\Models\Asset::create([
-                        'asset_code' => 'REQ-' . strtoupper(Str::random(6)),
+
+                    Asset::create([
+                        'asset_code' => 'REQ-'.strtoupper(Str::random(6)),
+                        'register_number' => 'REG-'.strtoupper(Str::random(6)),
                         'name' => $record->item_name,
-                        'category' => 'Uncategorized',
+                        'category' => 'Belum Dikategorikan',
                         'quantity' => $record->quantity,
                         'unit' => 'pcs',
                         'condition' => 'baik',

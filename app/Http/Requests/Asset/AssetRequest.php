@@ -16,6 +16,7 @@ class AssetRequest extends FormRequest
     {
         return [
             'asset_code' => ['required', 'string', 'max:50', Rule::unique('assets')->ignore($this->asset)],
+            'register_number' => ['required', 'string', 'max:50', Rule::unique('assets')->ignore($this->asset)],
             'name' => ['required', 'string', 'max:255'],
             'category' => ['required', 'string', 'max:100'],
             'quantity' => ['required', 'integer', 'min:0'],
@@ -31,6 +32,8 @@ class AssetRequest extends FormRequest
         return [
             'asset_code.required' => 'Kode aset wajib diisi.',
             'asset_code.unique' => 'Kode aset sudah digunakan.',
+            'register_number.required' => 'Nomor register wajib diisi.',
+            'register_number.unique' => 'Nomor register sudah digunakan.',
             'name.required' => 'Nama aset wajib diisi.',
             'category.required' => 'Kategori wajib diisi.',
             'quantity.required' => 'Jumlah wajib diisi.',

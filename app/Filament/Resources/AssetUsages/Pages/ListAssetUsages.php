@@ -2,8 +2,11 @@
 
 namespace App\Filament\Resources\AssetUsages\Pages;
 
+use App\Filament\Actions\PdfAction;
+use App\Filament\Exports\AssetUsageExporter;
 use App\Filament\Resources\AssetUsages\AssetUsageResource;
 use Filament\Actions\CreateAction;
+use Filament\Actions\ExportAction;
 use Filament\Resources\Pages\ListRecords;
 
 class ListAssetUsages extends ListRecords
@@ -13,13 +16,13 @@ class ListAssetUsages extends ListRecords
     protected function getHeaderActions(): array
     {
         return [
-            \App\Filament\Actions\PdfAction::make(
+            PdfAction::make(
                 'Penggunaan Aset',
-                ['asset.name', 'user.name', 'usage_date', 'quantity', 'purpose'],
-                ['Aset', 'Pengguna', 'Tanggal', 'Jumlah', 'Tujuan']
+                ['asset.register_number', 'asset.name', 'user.name', 'usage_date', 'quantity', 'purpose'],
+                ['Nomor Register', 'Aset', 'Pengguna', 'Tanggal Penggunaan', 'Jumlah', 'Tujuan']
             ),
-            \Filament\Actions\ExportAction::make()
-                ->exporter(\App\Filament\Exports\AssetUsageExporter::class)
+            ExportAction::make()
+                ->exporter(AssetUsageExporter::class)
                 ->label('Ekspor Data'),
             CreateAction::make(),
         ];

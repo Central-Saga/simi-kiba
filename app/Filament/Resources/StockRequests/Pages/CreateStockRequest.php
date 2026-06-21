@@ -3,7 +3,10 @@
 namespace App\Filament\Resources\StockRequests\Pages;
 
 use App\Filament\Resources\StockRequests\StockRequestResource;
+use App\Models\Asset;
+use App\Models\Location;
 use Filament\Resources\Pages\CreateRecord;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CreateStockRequest extends CreateRecord
@@ -19,11 +22,11 @@ class CreateStockRequest extends CreateRecord
                 $data['item_name'] = $data['new_item_name'] ?? null;
             }
         }
-        
+
         unset($data['request_type']);
         unset($data['existing_item_name']);
         unset($data['new_item_name']);
-        
+
         return $data;
     }
 
@@ -32,22 +35,23 @@ class CreateStockRequest extends CreateRecord
         $record = $this->record;
 
         if ($record->status === 'disetujui') {
-            \Illuminate\Support\Facades\DB::transaction(function () use ($record) {
-                $asset = \App\Models\Asset::where('name', $record->item_name)->first();
+            DB::transaction(function () use ($record) {
+                $asset = Asset::where('name', $record->item_name)->first();
 
                 if ($asset) {
                     $asset->quantity += $record->quantity;
                     $asset->save();
                 } else {
-                    $location = \App\Models\Location::firstOrCreate(
+                    $location = Location::firstOrCreate(
                         ['code' => 'DEF'],
-                        ['name' => 'Default Location']
+                        ['name' => 'Lokasi Default']
                     );
-                    
-                    \App\Models\Asset::create([
-                        'asset_code' => 'REQ-' . strtoupper(Str::random(6)),
+
+                    Asset::create([
+                        'asset_code' => 'REQ-'.strtoupper(Str::random(6)),
+                        'register_number' => 'REG-'.strtoupper(Str::random(6)),
                         'name' => $record->item_name,
-                        'category' => 'Uncategorized',
+                        'category' => 'Belum Dikategorikan',
                         'quantity' => $record->quantity,
                         'unit' => 'pcs',
                         'condition' => 'baik',

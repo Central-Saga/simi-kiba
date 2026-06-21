@@ -2,6 +2,7 @@
 
 namespace App\Filament\Resources\Assets\Tables;
 
+use App\Models\Asset;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
@@ -18,14 +19,29 @@ class AssetsTable
     {
         return $table
             ->columns([
+                TextColumn::make('rowIndex')
+                    ->label('Nomor Urut')
+                    ->rowIndex()
+                    ->alignCenter()
+                    ->extraHeaderAttributes(['class' => 'w-1']),
+                TextColumn::make('register_number')
+                    ->label('Nomor Register')
+                    ->searchable()
+                    ->copyable()
+                    ->sortable(),
                 TextColumn::make('asset_code')
-                    ->searchable(),
+                    ->label('Kode Aset')
+                    ->searchable()
+                    ->copyable()
+                    ->sortable(),
                 TextColumn::make('name')
+                    ->label('Nama Aset')
                     ->searchable(),
                 TextColumn::make('category')
+                    ->label('Kategori')
                     ->searchable(),
                 TextColumn::make('quantity')
-                    ->label('Total Quantity')
+                    ->label('Jumlah Total')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('total_used')
@@ -41,39 +57,46 @@ class AssetsTable
                     ->label('Satuan')
                     ->searchable(),
                 TextColumn::make('condition')
+                    ->label('Kondisi')
                     ->badge(),
                 TextColumn::make('location.name')
                     ->label('Lokasi')
-                    ->description(function (\App\Models\Asset $record) {
+                    ->description(function (Asset $record) {
                         $mutations = $record->mutations()->with('toLocation')->get();
-                        if ($mutations->isEmpty()) return null;
-                        
+                        if ($mutations->isEmpty()) {
+                            return null;
+                        }
+
                         $grouped = [];
                         foreach ($mutations as $m) {
-                            $locName = $m->toLocation ? $m->toLocation->name : 'Unknown';
-                            if (!isset($grouped[$locName])) {
+                            $locName = $m->toLocation ? $m->toLocation->name : 'Tidak Diketahui';
+                            if (! isset($grouped[$locName])) {
                                 $grouped[$locName] = 0;
                             }
                             $grouped[$locName] += $m->quantity;
                         }
-                        
+
                         $details = [];
                         foreach ($grouped as $loc => $qty) {
                             $details[] = "Mutasi: {$qty} ke {$loc}";
                         }
+
                         return implode(', ', $details);
                     })
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 TextColumn::make('deleted_at')
+                    ->label('Dihapus Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),

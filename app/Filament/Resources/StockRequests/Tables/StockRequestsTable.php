@@ -2,18 +2,18 @@
 
 namespace App\Filament\Resources\StockRequests\Tables;
 
+use App\Models\Asset;
+use App\Models\Location;
+use App\Models\StockRequest;
+use Filament\Actions\Action;
 use Filament\Actions\BulkActionGroup;
 use Filament\Actions\DeleteBulkAction;
 use Filament\Actions\EditAction;
 use Filament\Actions\ViewAction;
-use Filament\Actions\Action;
 use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
-use App\Models\Asset;
-use App\Models\Location;
-use App\Models\StockRequest;
 
 class StockRequestsTable
 {
@@ -21,15 +21,19 @@ class StockRequestsTable
     {
         return $table
             ->columns([
+                TextColumn::make('rowIndex')
+                    ->label('Nomor Urut')
+                    ->rowIndex()
+                    ->alignCenter(),
                 TextColumn::make('requester.name')
                     ->label('Pemohon')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('item_name')
-                    ->label('Item / Asset')
+                    ->label('Nama Barang')
                     ->searchable(),
                 TextColumn::make('quantity')
-                    ->label('Quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
@@ -42,14 +46,15 @@ class StockRequestsTable
                         default => 'gray',
                     }),
                 TextColumn::make('approver.name')
-                    ->label('Approver')
+                    ->label('Penyetuju')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('request_date')
-                    ->label('Tanggal Request')
+                    ->label('Tanggal Permintaan')
                     ->date()
                     ->sortable(),
                 TextColumn::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -72,12 +77,13 @@ class StockRequestsTable
                             } else {
                                 $location = Location::firstOrCreate(
                                     ['code' => 'DEF'],
-                                    ['name' => 'Default Location']
+                                    ['name' => 'Lokasi Default']
                                 );
                                 Asset::create([
-                                    'asset_code' => 'REQ-' . strtoupper(Str::random(6)),
+                                    'asset_code' => 'REQ-'.strtoupper(Str::random(6)),
+                                    'register_number' => 'REG-'.strtoupper(Str::random(6)),
                                     'name' => $record->item_name,
-                                    'category' => 'Uncategorized',
+                                    'category' => 'Belum Dikategorikan',
                                     'quantity' => $record->quantity,
                                     'unit' => 'pcs',
                                     'condition' => 'baik',

@@ -20,7 +20,7 @@
 <body>
     <div class="header">
         <h1>Laporan {{ $title }}</h1>
-        <p>SIMI-KIBA - Sistem Informasi Manajemen Inventaris</p>
+        <p>{{ $systemName ?? 'Sistem Manajemen Inventaris Barang pada Komisi Informasi Bali' }}</p>
     </div>
 
     <div class="meta">
