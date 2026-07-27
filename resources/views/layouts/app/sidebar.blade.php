@@ -6,12 +6,7 @@
     <body class="min-h-screen bg-white font-sans antialiased" style="background-color: #f8f9fb;">
         <flux:sidebar sticky collapsible="mobile" class="border-e border-zinc-200 bg-zinc-50">
             <flux:sidebar.header>
-                <div class="flex items-center gap-2.5">
-                    <div class="flex items-center justify-center size-7 rounded-md bg-indigo-600 shadow-sm">
-                        <flux:icon.cube class="size-4 text-white" />
-                    </div>
-                    <span class="text-sm font-semibold text-zinc-900 tracking-tight">SIMI KIBA</span>
-                </div>
+                <x-app-logo :sidebar="true" href="{{ route('dashboard') }}" wire:navigate />
             </flux:sidebar.header>
 
             <flux:sidebar.nav>
@@ -23,10 +18,10 @@
             <flux:spacer />
 
             <flux:sidebar.nav>
-                <flux:sidebar.item icon="folder" href="https://github.com/laravel/livewire-starter-kit" target="_blank">
+                <flux:sidebar.item icon="folder" href="{{ route('dashboard') }}" target="_blank">
                     {{ __('Repositori') }}
                 </flux:sidebar.item>
-                <flux:sidebar.item icon="book-open" href="https://laravel.com/docs/starter-kits#livewire" target="_blank">
+                <flux:sidebar.item icon="book-open" href="{{ route('dashboard') }}" target="_blank">
                     {{ __('Dokumentasi') }}
                 </flux:sidebar.item>
             </flux:sidebar.nav>
