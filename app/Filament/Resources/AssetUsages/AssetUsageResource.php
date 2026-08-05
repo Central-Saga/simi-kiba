@@ -20,11 +20,17 @@ class AssetUsageResource extends Resource
 {
     protected static ?string $model = AssetUsage::class;
 
+    protected static ?string $modelLabel = 'Penggunaan Aset';
+
+    protected static ?string $pluralModelLabel = 'Penggunaan Aset';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clock';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventaris';
 
     protected static ?string $navigationLabel = 'Penggunaan Aset';
+
+    protected static ?string $breadcrumb = 'Penggunaan Aset';
 
     public static function form(Schema $schema): Schema
     {

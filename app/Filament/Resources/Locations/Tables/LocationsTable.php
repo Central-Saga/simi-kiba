@@ -16,8 +16,10 @@ class LocationsTable
         return $table
             ->columns([
                 TextColumn::make('code')
+                    ->label('Kode Lokasi')
                     ->searchable(),
                 TextColumn::make('name')
+                    ->label('Nama Lokasi')
                     ->searchable(),
                 TextColumn::make('created_at')
                     ->dateTime()

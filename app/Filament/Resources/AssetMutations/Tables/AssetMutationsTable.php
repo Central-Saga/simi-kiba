@@ -28,9 +28,11 @@ class AssetMutationsTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('mutation_date')
+                    ->label('Tanggal Mutasi')
                     ->date()
                     ->sortable(),
                 TextColumn::make('quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

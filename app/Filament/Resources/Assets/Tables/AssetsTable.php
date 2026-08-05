@@ -19,13 +19,16 @@ class AssetsTable
         return $table
             ->columns([
                 TextColumn::make('asset_code')
+                    ->label('Kode Aset')
                     ->searchable(),
                 TextColumn::make('name')
+                    ->label('Nama Aset')
                     ->searchable(),
                 TextColumn::make('category')
+                    ->label('Kategori')
                     ->searchable(),
                 TextColumn::make('quantity')
-                    ->label('Total Quantity')
+                    ->label('Total Stok')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('total_used')
@@ -41,6 +44,7 @@ class AssetsTable
                     ->label('Satuan')
                     ->searchable(),
                 TextColumn::make('condition')
+                    ->label('Kondisi')
                     ->badge(),
                 TextColumn::make('location.name')
                     ->label('Lokasi')

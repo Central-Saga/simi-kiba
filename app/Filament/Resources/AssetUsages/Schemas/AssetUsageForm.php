@@ -3,6 +3,7 @@
 namespace App\Filament\Resources\AssetUsages\Schemas;
 
 use Filament\Forms\Components\DatePicker;
+use Filament\Forms\Components\Hidden;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Components\Textarea;
@@ -15,6 +16,7 @@ class AssetUsageForm
         return $schema
             ->components([
                 Select::make('asset_id')
+                    ->label('Aset')
                     ->relationship('asset', 'name')
                     ->required()
                     ->searchable()
@@ -22,28 +24,40 @@ class AssetUsageForm
                     ->live()
                     ->afterStateUpdated(function ($state, $set) {
                         if ($state) {
-                            $asset = \App\Models\Asset::find($state);
+                            $asset = \App\Models\Asset::with('location')->find($state);
                             if ($asset) {
                                 $set('location_id', $asset->location_id);
+                                $set('location_name', $asset->location?->name ?? '-');
                             }
+                        } else {
+                            $set('location_id', null);
+                            $set('location_name', '');
                         }
                     }),
                 Select::make('user_id')
+                    ->label('Pengguna')
                     ->relationship('user', 'name')
                     ->default(auth()->id())
                     ->required()
                     ->searchable()
                     ->preload(),
-                Select::make('location_id')
-                    ->label('Lokasi Pengambilan')
-                    ->relationship('location', 'name')
-                    ->required()
+                TextInput::make('location_name')
+                    ->label('Lokasi Aset')
                     ->disabled()
-                    ->dehydrated(),
+                    ->dehydrated(false)
+                    ->afterStateHydrated(function ($component, $state, $record) {
+                        if ($record && $record->location) {
+                            $component->state($record->location->name);
+                        }
+                    }),
+                Hidden::make('location_id')
+                    ->required(),
                 DatePicker::make('usage_date')
+                    ->label('Tanggal Penggunaan')
                     ->default(now())
                     ->required(),
                 TextInput::make('quantity')
+                    ->label('Jumlah')
                     ->required()
                     ->numeric()
                     ->minValue(1)
@@ -70,8 +84,10 @@ class AssetUsageForm
                         },
                     ]),
                 Textarea::make('purpose')
+                    ->label('Tujuan Penggunaan')
                     ->columnSpanFull(),
                 Textarea::make('notes')
+                    ->label('Catatan')
                     ->columnSpanFull(),
             ]);
     }

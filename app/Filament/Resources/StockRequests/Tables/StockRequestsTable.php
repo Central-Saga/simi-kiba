@@ -26,10 +26,10 @@ class StockRequestsTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('item_name')
-                    ->label('Item / Asset')
+                    ->label('Nama Barang')
                     ->searchable(),
                 TextColumn::make('quantity')
-                    ->label('Quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('status')
@@ -42,11 +42,11 @@ class StockRequestsTable
                         default => 'gray',
                     }),
                 TextColumn::make('approver.name')
-                    ->label('Approver')
+                    ->label('Disetujui Oleh')
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('request_date')
-                    ->label('Tanggal Request')
+                    ->label('Tanggal Permintaan')
                     ->date()
                     ->sortable(),
                 TextColumn::make('created_at')

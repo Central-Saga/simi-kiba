@@ -20,11 +20,17 @@ class StockRequestResource extends Resource
 {
     protected static ?string $model = StockRequest::class;
 
+    protected static ?string $modelLabel = 'Permintaan Stok';
+
+    protected static ?string $pluralModelLabel = 'Permintaan Stok';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-clipboard-document-list';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventaris';
 
     protected static ?string $navigationLabel = 'Permintaan Stok';
+
+    protected static ?string $breadcrumb = 'Permintaan Stok';
 
     public static function form(Schema $schema): Schema
     {

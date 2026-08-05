@@ -21,7 +21,8 @@ class ListAssets extends ListRecords
             \Filament\Actions\ExportAction::make()
                 ->exporter(\App\Filament\Exports\AssetExporter::class)
                 ->label('Ekspor Data'),
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Aset'),
         ];
     }
 }

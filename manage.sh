@@ -31,10 +31,15 @@ case "$1" in
         sleep 3
         
         echo ""
-        echo "📦 Tahap 2: Memulai Server Aset/Vite (Native Windows)"
+        echo "📦 Tahap 2: Memulai Server Aset/Vite"
         echo "Deskripsi: Vite akan memproses CSS/JS Anda secara real-time."
-        echo "[COMMAND] npm.cmd run dev > storage/logs/vite.log 2>&1 &"
-        npm.cmd run dev > storage/logs/vite.log 2>&1 &
+        if command -v npm.cmd >/dev/null 2>&1; then
+            NPM_CMD="npm.cmd"
+        else
+            NPM_CMD="npm"
+        fi
+        echo "[COMMAND] $NPM_CMD run dev > storage/logs/vite.log 2>&1 &"
+        "$NPM_CMD" run dev > storage/logs/vite.log 2>&1 &
         echo $! > storage/logs/npm.pid
         
         echo ""
@@ -57,9 +62,13 @@ case "$1" in
         echo "[COMMAND] $COMPOSE down"
         $COMPOSE down
         
-        echo "[COMMAND] taskkill /F /IM node.exe"
-        cmd.exe /c "taskkill /F /IM node.exe /T 2>NUL" > /dev/null 2>&1
-        rm -f storage/logs/npm.pid
+        if [ -f storage/logs/npm.pid ]; then
+            kill $(cat storage/logs/npm.pid) 2>/dev/null || true
+            rm -f storage/logs/npm.pid
+        fi
+        if command -v cmd.exe >/dev/null 2>&1; then
+            cmd.exe /c "taskkill /F /IM node.exe /T 2>NUL" > /dev/null 2>&1 || true
+        fi
         
         echo ""
         echo "✅ Seluruh sistem telah dimatikan."

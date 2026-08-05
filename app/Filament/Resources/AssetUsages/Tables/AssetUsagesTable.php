@@ -24,9 +24,11 @@ class AssetUsagesTable
                     ->searchable()
                     ->sortable(),
                 TextColumn::make('usage_date')
+                    ->label('Tanggal Penggunaan')
                     ->date()
                     ->sortable(),
                 TextColumn::make('quantity')
+                    ->label('Jumlah')
                     ->numeric()
                     ->sortable(),
                 TextColumn::make('created_at')

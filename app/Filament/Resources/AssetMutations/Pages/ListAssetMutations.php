@@ -21,7 +21,8 @@ class ListAssetMutations extends ListRecords
             \Filament\Actions\ExportAction::make()
                 ->exporter(\App\Filament\Exports\AssetMutationExporter::class)
                 ->label('Ekspor Data'),
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Mutasi Aset'),
         ];
     }
 }

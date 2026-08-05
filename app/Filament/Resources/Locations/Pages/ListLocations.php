@@ -21,7 +21,8 @@ class ListLocations extends ListRecords
             \Filament\Actions\ExportAction::make()
                 ->exporter(\App\Filament\Exports\LocationExporter::class)
                 ->label('Ekspor Data'),
-            CreateAction::make(),
+            CreateAction::make()
+                ->label('Tambah Lokasi'),
         ];
     }
 }

@@ -17,13 +17,16 @@ class UsersTable
         return $table
             ->columns([
                 TextColumn::make('name')
+                    ->label('Nama')
                     ->searchable(),
                 TextColumn::make('email')
-                    ->label('Email address')
+                    ->label('Email')
                     ->searchable(),
                 TextColumn::make('role')
+                    ->label('Role')
                     ->badge(),
                 IconColumn::make('is_active')
+                    ->label('Status Aktif')
                     ->boolean(),
                 TextColumn::make('created_at')
                     ->dateTime()

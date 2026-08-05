@@ -1,6 +1,7 @@
 services:
     laravel_app:
-        image: 'serversideup/php-intl:8.4-cli'
+        build: .
+        image: 'simi-kiba-app:latest'
         container_name: simi_kiba_app
         command: "php artisan serve --host=0.0.0.0 --port=8000"
         extra_hosts:
@@ -20,7 +21,7 @@ services:
             - redis
 
     mysql:
-        image: 'mysql:8.4'
+        image: 'docker.io/library/mysql:8.4'
         container_name: simi_kiba_mysql
         ports:
             - '${FORWARD_DB_PORT:-3306}:3306'
@@ -37,7 +38,7 @@ services:
             - simi_kiba_network
 
     redis:
-        image: 'redis:alpine'
+        image: 'docker.io/library/redis:alpine'
         container_name: simi_kiba_redis
         ports:
             - '${FORWARD_REDIS_PORT:-6379}:6379'

@@ -12,24 +12,29 @@ class AssetMutationInfolist
         return $schema
             ->components([
                 TextEntry::make('asset.name')
-                    ->label('Asset'),
+                    ->label('Aset'),
                 TextEntry::make('fromLocation.name')
-                    ->label('From location'),
+                    ->label('Dari Lokasi'),
                 TextEntry::make('toLocation.name')
-                    ->label('To location'),
+                    ->label('Ke Lokasi'),
                 TextEntry::make('mutation_date')
+                    ->label('Tanggal Mutasi')
                     ->date(),
                 TextEntry::make('quantity')
+                    ->label('Jumlah')
                     ->numeric(),
                 TextEntry::make('creator.name')
-                    ->label('Creator'),
+                    ->label('Dibuat Oleh'),
                 TextEntry::make('notes')
+                    ->label('Catatan')
                     ->placeholder('-')
                     ->columnSpanFull(),
                 TextEntry::make('created_at')
+                    ->label('Dibuat Pada')
                     ->dateTime()
                     ->placeholder('-'),
                 TextEntry::make('updated_at')
+                    ->label('Diperbarui Pada')
                     ->dateTime()
                     ->placeholder('-'),
             ]);

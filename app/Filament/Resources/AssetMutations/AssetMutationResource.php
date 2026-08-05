@@ -20,11 +20,17 @@ class AssetMutationResource extends Resource
 {
     protected static ?string $model = AssetMutation::class;
 
+    protected static ?string $modelLabel = 'Mutasi Aset';
+
+    protected static ?string $pluralModelLabel = 'Mutasi Aset';
+
     protected static string|BackedEnum|null $navigationIcon = 'heroicon-o-arrows-right-left';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Inventaris';
 
     protected static ?string $navigationLabel = 'Mutasi Aset';
+
+    protected static ?string $breadcrumb = 'Mutasi Aset';
 
     public static function form(Schema $schema): Schema
     {

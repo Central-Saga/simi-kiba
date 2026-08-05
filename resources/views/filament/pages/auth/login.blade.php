@@ -64,7 +64,7 @@
             </div>
 
             <div class="mb-12">
-                <h2 class="text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3">Login Admin</h2>
+                <h2 class="text-4xl font-extrabold text-zinc-900 dark:text-white tracking-tight mb-3">Selamat Datang</h2>
                 <!-- <p class="text-zinc-500 dark:text-zinc-400">Silakan masukkan kredensial Anda untuk mengakses panel
                     kontrol.</p> -->
             </div>

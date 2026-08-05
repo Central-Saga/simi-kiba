@@ -20,11 +20,17 @@ class RoleResource extends Resource
 {
     protected static ?string $model = Role::class;
 
+    protected static ?string $modelLabel = 'Role';
+
+    protected static ?string $pluralModelLabel = 'Role';
+
     protected static string|\BackedEnum|null $navigationIcon = 'heroicon-o-shield-check';
 
     protected static string|\UnitEnum|null $navigationGroup = 'Data Master';
 
     protected static ?string $navigationLabel = 'Roles';
+
+    protected static ?string $breadcrumb = 'Role';
 
     public static function form(Schema $schema): Schema
     {
