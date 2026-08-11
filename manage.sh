@@ -10,7 +10,7 @@
 # - Frontend (Vite/Node.js) berjalan di Background Native Windows
 # ==============================================================================
 
-COMPOSE="podman-compose"
+COMPOSE="podman compose"
 APP_CONTAINER="simi_kiba_app"
 
 case "$1" in
@@ -24,6 +24,8 @@ case "$1" in
         
         echo ""
         echo "🗄️  Tahap 1: Memulai Layanan Backend (Podman)"
+        echo "[COMMAND] podman build -t simi-kiba-app:latest ."
+        podman build -t simi-kiba-app:latest .
         echo "[COMMAND] $COMPOSE up -d"
         $COMPOSE up -d
         
