@@ -35,8 +35,6 @@ class RoleSeeder extends Seeder
         // Assign some permissions to staff
         $stafRole->syncPermissions(['view_assets', 'view_users']);
 
-        // Create dummy roles for testing
-        Role::factory()->count(3)->create();
 
         // Assign to existing users
         $admin = User::where('email', 'admin@simi.com')->first();
@@ -44,9 +42,9 @@ class RoleSeeder extends Seeder
             $admin->assignRole($adminRole);
         }
 
-        $staf = User::where('email', 'staf@simi.com')->first();
-        if ($staf) {
-            $staf->assignRole($stafRole);
-        }
+        // Assign staf_operasional role to all staff users
+        User::where('role', 'staf_operasional')->each(function ($user) use ($stafRole) {
+            $user->assignRole($stafRole);
+        });
     }
 }

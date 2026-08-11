@@ -18,6 +18,10 @@ class DatabaseSeeder extends Seeder
             RoleSeeder::class,
             LocationSeeder::class,
             AssetSeeder::class,
+            AssetStockSeeder::class,
+            AssetUsageSeeder::class,
+            AssetMutationSeeder::class,
+            StockRequestSeeder::class,
         ]);
     }
 }
