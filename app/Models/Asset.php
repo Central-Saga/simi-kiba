@@ -12,6 +12,7 @@ class Asset extends Model
 
     protected $fillable = [
         'asset_code',
+        'register_number',
         'name',
         'category',
         'quantity',
