@@ -16,6 +16,8 @@ class LatestStockRequests extends TableWidget
 
     protected static ?string $heading = 'Permintaan Stok Terbaru';
 
+    protected ?string $pollingInterval = '10s';
+
     public function table(Table $table): Table
     {
         return $table
@@ -33,9 +35,9 @@ class LatestStockRequests extends TableWidget
                     ->label('Status')
                     ->badge()
                     ->color(fn (string $state): string => match ($state) {
-                        'pending' => 'warning',
-                        'approved' => 'success',
-                        'rejected' => 'danger',
+                        'diajukan' => 'warning',
+                        'disetujui' => 'success',
+                        'ditolak' => 'danger',
                         default => 'gray',
                     }),
                 \Filament\Tables\Columns\TextColumn::make('created_at')

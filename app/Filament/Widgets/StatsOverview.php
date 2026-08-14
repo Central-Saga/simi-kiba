@@ -8,6 +8,8 @@ use Filament\Widgets\StatsOverviewWidget\Stat;
 class StatsOverview extends StatsOverviewWidget
 {
     protected static ?int $sort = 1;
+    
+    protected ?string $pollingInterval = '10s';
 
     protected function getStats(): array
     {
@@ -21,7 +23,7 @@ class StatsOverview extends StatsOverviewWidget
                 ->description('Pergerakan aset bulan ini')
                 ->descriptionIcon('heroicon-m-arrows-right-left')
                 ->color('success'),
-            Stat::make('Permintaan Stok Pending', \App\Models\StockRequest::where('status', 'pending')->count())
+            Stat::make('Permintaan Stok Pending', \App\Models\StockRequest::where('status', 'diajukan')->count())
                 ->description('Perlu persetujuan segera')
                 ->descriptionIcon('heroicon-m-clock')
                 ->color('warning'),

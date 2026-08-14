@@ -20,10 +20,19 @@ case "$1" in
         echo "========================================="
         echo "Deskripsi: Perintah ini menyalakan seluruh arsitektur server Anda."
         
-        export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
         
         echo ""
         echo "🗄️  Tahap 1: Memulai Layanan Backend (Podman)"
+        
+        # Pastikan Podman service/socket berjalan (penting untuk docker-compose / podman compose)
+        PODMAN_SOCK="${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/podman/podman.sock"
+        if [ ! -S "$PODMAN_SOCK" ]; then
+            echo "[INFO] Podman socket tidak ditemukan di $PODMAN_SOCK. Memulai podman system service..."
+            podman system service -t 0 >/dev/null 2>&1 &
+            sleep 2
+        fi
+
         echo "[COMMAND] podman build -t simi-kiba-app:latest ."
         podman build -t simi-kiba-app:latest .
         echo "[COMMAND] $COMPOSE up -d"
@@ -153,7 +162,7 @@ case "$1" in
         echo ""
 
         echo "📦 Tahap 4/8: composer install (container)"
-        export XDG_RUNTIME_DIR=/run/user/$(id -u)
+
         $COMPOSE up -d
         sleep 3
         podman exec -i "$APP_CONTAINER" composer install --no-interaction --prefer-dist
