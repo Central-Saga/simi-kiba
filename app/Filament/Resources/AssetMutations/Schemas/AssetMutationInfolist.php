@@ -19,7 +19,7 @@ class AssetMutationInfolist
                     ->label('Ke Lokasi'),
                 TextEntry::make('mutation_date')
                     ->label('Tanggal Mutasi')
-                    ->date(),
+                    ->date('d/m/Y'),
                 TextEntry::make('quantity')
                     ->label('Jumlah')
                     ->numeric(),

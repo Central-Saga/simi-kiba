@@ -17,7 +17,7 @@ class AssetMutationRequest extends FormRequest
             'asset_id' => ['required', 'exists:assets,id'],
             'from_location_id' => ['required', 'exists:locations,id'],
             'to_location_id' => ['required', 'exists:locations,id'],
-            'mutation_date' => ['required', 'date'],
+            'mutation_date' => ['required', 'date_format:Y-m-d'],
             'quantity' => ['required', 'integer', 'min:1'],
             'notes' => ['nullable', 'string'],
         ];
@@ -30,6 +30,7 @@ class AssetMutationRequest extends FormRequest
             'from_location_id.required' => 'Lokasi asal wajib dipilih.',
             'to_location_id.required' => 'Lokasi tujuan wajib dipilih.',
             'mutation_date.required' => 'Tanggal mutasi wajib diisi.',
+            'mutation_date.date_format' => 'Format tanggal mutasi harus berupa YYYY-MM-DD.',
             'quantity.required' => 'Jumlah wajib diisi.',
             'quantity.min' => 'Jumlah minimal adalah 1.',
         ];

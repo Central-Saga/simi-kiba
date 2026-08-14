@@ -1,4 +1,0 @@
-services:
-    laravel_app:
-        ports: !override
-            - '${APP_PORT:-8080}:8000'

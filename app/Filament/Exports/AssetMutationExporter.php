@@ -20,7 +20,9 @@ class AssetMutationExporter extends Exporter
             ExportColumn::make('asset_id'),
             ExportColumn::make('from_location_id'),
             ExportColumn::make('to_location_id'),
-            ExportColumn::make('mutation_date'),
+            ExportColumn::make('mutation_date')
+                ->label('Tanggal Mutasi')
+                ->formatStateUsing(fn ($state) => $state ? \Carbon\Carbon::parse($state)->format('Y-m-d') : '-'),
             ExportColumn::make('quantity'),
             ExportColumn::make('notes'),
             ExportColumn::make('created_by'),

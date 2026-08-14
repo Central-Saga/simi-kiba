@@ -29,7 +29,7 @@ class AssetMutationsTable
                     ->sortable(),
                 TextColumn::make('mutation_date')
                     ->label('Tanggal Mutasi')
-                    ->date()
+                    ->date('d/m/Y')
                     ->sortable(),
                 TextColumn::make('quantity')
                     ->label('Jumlah')

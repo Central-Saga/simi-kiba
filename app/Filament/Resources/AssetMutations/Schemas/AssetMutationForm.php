@@ -53,7 +53,9 @@ class AssetMutationForm
                     ->preload(),
                 DatePicker::make('mutation_date')
                     ->label('Tanggal Mutasi')
-                    ->default(now())
+                    ->displayFormat('d/m/Y')
+                    ->native(false)
+                    ->default(now()->toDateString())
                     ->required(),
                 TextInput::make('quantity')
                     ->label('Jumlah')
